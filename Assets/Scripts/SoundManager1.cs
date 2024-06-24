@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SoundManager : MonoBehaviour
 {
     [SerializeField]
-    Slider volumeSlider;
+    Slider volumeSlider
 
     // Start is called before the first frame update
     void Start()
@@ -20,14 +20,11 @@ public class SoundManager : MonoBehaviour
         {
             Load();
         }
-
-        // Ensure the volume is set correctly at the start
-        AudioListener.volume = volumeSlider.value;
     }
 
     public void ChangeVolume()
     {
-        AudioListener.volume = volumeSlider.value;
+        AudioListener.volume = volumeSlider.Value;
         Save();
     }
 
@@ -40,4 +37,3 @@ public class SoundManager : MonoBehaviour
     {
         PlayerPrefs.SetFloat("musicVolume", volumeSlider.value);
     }
-}
