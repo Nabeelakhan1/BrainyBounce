@@ -6,8 +6,7 @@ using System.Collections.Generic; // For List<RaycastResult>
 public class ThrowController : MonoBehaviour
 {
     [Header("Throw Settings")]
-    public GameObject objectToThrow;
-    public GameObject objectPrefab;
+    public GameObject[] objectPrefabs; // Array to hold different colored ball prefabs
     public int totalThrows = 100;
     public float throwForce;
 
@@ -46,8 +45,11 @@ public class ThrowController : MonoBehaviour
                 // Convert the mouse position to world coordinates
                 Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, 10f));
 
-                // Instantiate the object to be thrown from the camera position
-                GameObject thrownObject = Instantiate(objectPrefab, transform.position, Quaternion.identity);
+                // Randomly select a prefab from the array
+                GameObject selectedPrefab = objectPrefabs[Random.Range(0, objectPrefabs.Length)];
+
+                // Instantiate the selected object prefab from the camera position
+                GameObject thrownObject = Instantiate(selectedPrefab, transform.position, Quaternion.identity);
 
                 // Schedule the destruction of the thrown object after 3 seconds
                 Destroy(thrownObject, 3f);

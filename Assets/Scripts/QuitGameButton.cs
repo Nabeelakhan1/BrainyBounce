@@ -1,18 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI; // For Button component
 
 public class QuitGameButton : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+        // Get the Button component attached to this GameObject
+        Button button = GetComponent<Button>();
+
+        // Add a listener to the button to call the QuitGame method when clicked
+        if (button != null)
+        {
+            button.onClick.AddListener(QuitGame);
+        }
+        else
+        {
+            Debug.LogError("No Button component found on this GameObject.");
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void QuitGame()
     {
-        
+        // Quit the application
+        Application.Quit();
+
+        // If running in the editor, stop playing
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 }
