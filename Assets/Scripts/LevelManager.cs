@@ -73,4 +73,14 @@ public class LevelManager : MonoBehaviour
             levelUnlocked[i] = PlayerPrefs.GetInt($"Level_{i}_Unlocked", 0) == 1;
         }
     }
+
+    // Add this method to reset the level progress
+    public void ResetLevels()
+    {
+        for (int i = 0; i < levelUnlocked.Length; i++)
+        {
+            levelUnlocked[i] = i == 1; // Only unlock level 1
+        }
+        SaveLevelProgress();
+    }
 }

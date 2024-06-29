@@ -1,4 +1,3 @@
-// LevelButton.cs script
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,9 +9,23 @@ public class LevelButton : MonoBehaviour
     private void Start()
     {
         button = GetComponent<Button>();
+        UpdateButtonInteractable();
+    }
+
+    private void OnEnable()
+    {
+        UpdateButtonInteractable();
+    }
+
+    private void UpdateButtonInteractable()
+    {
         if (!LevelManager.Instance.IsLevelUnlocked(levelIndex))
         {
             button.interactable = false;
+        }
+        else
+        {
+            button.interactable = true;
         }
     }
 }

@@ -10,12 +10,12 @@ public class DetectionZone : MonoBehaviour
     public GameObject[] hearts; // Array to hold references to the heart UI elements
     public GameObject bloodEffect; // Reference to the blood effect UI element
 
-    private int health = 3; // Player's health
+    private int health = 6; // Player's health
 
     private void OnEnable()
     {
         // Reset health
-        health = 3;
+        health = 6;
 
         // Re-enable all heart UI elements
         foreach (var heart in hearts)
@@ -110,7 +110,7 @@ public class DetectionZone : MonoBehaviour
 
     public void RestartGame()
     {
-        health = 3; // Reset health
+        health = 6; // Reset health
 
         // Re-enable all heart UI elements
         foreach (var heart in hearts)
