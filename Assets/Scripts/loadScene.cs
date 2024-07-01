@@ -20,18 +20,30 @@ public class LoadScene : MonoBehaviour
 
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(index);
         asyncOperation.allowSceneActivation = false;
-        float progress = 0;
 
-        while (!asyncOperation.isDone)
+        float duration = 5.0f;  // Duration to complete loading in seconds
+        float elapsed = 0f;
+
+        while (elapsed < duration)
         {
-            progress = Mathf.MoveTowards(progress, asyncOperation.progress, Time.deltaTime);
-            loadingBar.value = progress;
-            if (progress >= 0.9f)
-            {
-                loadingBar.value = 1;
-                asyncOperation.allowSceneActivation = true;
-            }
+            elapsed += Time.deltaTime;
+            loadingBar.value = Mathf.Clamp01(elapsed / duration);
             yield return null;
         }
+
+        // Ensure loading bar is full after the duration
+        loadingBar.value = 1;
+
+        // Activate the scene once the loading bar is full
+        asyncOperation.allowSceneActivation = true;
+
+        // Wait until the scene is fully loaded
+        while (!asyncOperation.isDone)
+        {
+            yield return null;
+        }
+
+        // Hide loader UI after the scene is loaded
+        loaderUI.SetActive(false);
     }
 }
