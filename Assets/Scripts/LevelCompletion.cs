@@ -1,26 +1,81 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class LevelCompletion : MonoBehaviour
 {
     public GameObject levelCompletePanel;
+    public GameObject gameLosePanel;
+
+    // Text fields for level complete panel
+    public TMP_Text coinsCollectedTextComplete;
+    public TMP_Text timeTakenTextComplete;
+    public TMP_Text accuracyTextComplete;
+
+    // Text fields for game lose panel
+    public TMP_Text coinsCollectedTextLose;
+    public TMP_Text timeTakenTextLose;
+    public TMP_Text accuracyTextLose;
+
+    private int totalCoins;
+    private float startTime;
+    private int successfulThrows;
+    private int totalThrows;
+
+    private void Start()
+    {
+        ResetStats();
+        startTime = Time.time;
+        Debug.Log("Level started. Stats reset.");
+    }
 
     // Called when the level is completed
-    public void OnLevelComplete(int completedLevelIndex)
+    public void OnLevelComplete(int completedLevelIndex, bool isWin)
     {
+        Debug.Log("Level completion called.");
+
         if (LevelManager.Instance == null)
         {
             Debug.LogError("LevelManager instance is not set.");
             return;
         }
 
-        // Unlock the next level
-        int nextLevelIndex = completedLevelIndex + 1;
-        LevelManager.Instance.UnlockLevel(nextLevelIndex);
+        // Calculate the stats
+        totalCoins = FindObjectOfType<CoinCounter>().GetCoinCount();
+        float timeTaken = Time.time - startTime;
+        float accuracy = totalThrows == 0 ? 0 : (float)successfulThrows / totalThrows * 100;
 
-        // Show level complete panel and pause the game
-        levelCompletePanel.SetActive(true);
+        Debug.Log($"Stats - Total Coins: {totalCoins}, Time Taken: {timeTaken:F2}s, Accuracy: {accuracy:F2}%");
+
+        // Update the stats text for the appropriate panel
+        if (isWin)
+        {
+            coinsCollectedTextComplete.text = $"{totalCoins}";
+            timeTakenTextComplete.text = $"{timeTaken:F2}s";
+            accuracyTextComplete.text = $"{accuracy:F2}%";
+
+            levelCompletePanel.SetActive(true);
+        }
+        else
+        {
+            coinsCollectedTextLose.text = $"{totalCoins}";
+            timeTakenTextLose.text = $"{timeTaken:F2}s";
+            accuracyTextLose.text = $"{accuracy:F2}%";
+
+            gameLosePanel.SetActive(true);
+        }
+
+        Debug.Log("Stats updated on UI.");
+
         Time.timeScale = 0; // Pause the game
+
+        // Unlock the next level if won
+        if (isWin)
+        {
+            int nextLevelIndex = completedLevelIndex + 1;
+            LevelManager.Instance.UnlockLevel(nextLevelIndex);
+            Debug.Log($"Next level {nextLevelIndex} unlocked.");
+        }
     }
 
     // Called when Restart Level button is clicked
@@ -29,6 +84,7 @@ public class LevelCompletion : MonoBehaviour
         Time.timeScale = 1; // Resume the game
         int currentLevelIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentLevelIndex);
+        Debug.Log($"Restarting level {currentLevelIndex}.");
     }
 
     // Called when Next Level button is clicked
@@ -42,10 +98,61 @@ public class LevelCompletion : MonoBehaviour
         if (LevelManager.Instance.IsLevelUnlocked(nextLevelIndex))
         {
             SceneManager.LoadScene(nextLevelIndex);
+            Debug.Log($"Loading next level {nextLevelIndex}.");
         }
         else
         {
             Debug.LogError($"Next level {nextLevelIndex} is not unlocked.");
         }
+    }
+
+    // Method to reset stats
+    private void ResetStats()
+    {
+        totalCoins = 0;
+        startTime = Time.time;
+        successfulThrows = 0;
+        totalThrows = 0;
+        Debug.Log("Stats reset.");
+    }
+
+    // Methods to track throws
+    public void TrackThrow(bool isSuccessful)
+    {
+        totalThrows++;
+        if (isSuccessful)
+        {
+            successfulThrows++;
+        }
+        Debug.Log($"Throw tracked. Successful: {successfulThrows}, Total: {totalThrows}");
+    }
+
+    private void OnEnable()
+    {
+        ResetStats();
+        Debug.Log("Level enabled, stats reset.");
+    }
+
+    private void OnDisable()
+    {
+        Debug.Log("Level disabled, calculating final stats.");
+        CalculateAndDisplayStats();
+    }
+
+    private void CalculateAndDisplayStats()
+    {
+        totalCoins = FindObjectOfType<CoinCounter>().GetCoinCount();
+        float timeTaken = Time.time - startTime;
+        float accuracy = totalThrows == 0 ? 0 : (float)successfulThrows / totalThrows * 100;
+
+        coinsCollectedTextComplete.text = $"{totalCoins}";
+        timeTakenTextComplete.text = $"{timeTaken:F2}s";
+        accuracyTextComplete.text = $"{accuracy:F2}%";
+
+        coinsCollectedTextLose.text = $"{totalCoins}";
+        timeTakenTextLose.text = $"{timeTaken:F2}s";
+        accuracyTextLose.text = $"{accuracy:F2}%";
+
+        Debug.Log($"Final Stats - Total Coins: {totalCoins}, Time Taken: {timeTaken:F2}s, Accuracy: {accuracy:F2}%");
     }
 }
