@@ -61,19 +61,7 @@ public class ThrownObject : MonoBehaviour
             Debug.Log("Destroying object tagged as ring: " + collision.gameObject.name);
             Destroy(collision.gameObject);
 
-            // Confirm the object destruction
-            if (collision.gameObject == null)
-            {
-                Debug.Log("Object successfully destroyed.");
-            }
-            else
-            {
-                Debug.LogError("Object destruction failed.");
-            }
-
-            // Optionally, destroy the thrown object as well if needed
-            // Debug.Log("Destroying thrown object: " + gameObject.name);
-            // Destroy(gameObject);
+          
         }
         else
         {
