@@ -24,13 +24,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100000}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &11400000
 MonoBehaviour:
@@ -88,14 +88,16 @@ MonoBehaviour:
   useTextGroupFilter: 0
   textGroupFilter: 
   resourceClipsPauseDoNotUnload: 0
-  playlistControllerPrefab: {fileID: 400000, guid: 8d628ddcfa7a21e49a762de30fc7e9dd, type: 3}
+  playlistControllerPrefab: {fileID: 400000, guid: 8d628ddcfa7a21e49a762de30fc7e9dd,
+    type: 3}
   persistBetweenScenes: 1
   shouldLogDestroys: 0
   showBusColors: 0
   showGroupImportance: 0
   areGroupsExpanded: 1
   soundGroupTemplate: {fileID: 400008, guid: 877a3a4bf0a4abf43aba41125e1d3101, type: 3}
-  soundGroupVariationTemplate: {fileID: 400000, guid: 08eea2d8c4572c7479da53cfbc14bde6, type: 3}
+  soundGroupVariationTemplate: {fileID: 400000, guid: 08eea2d8c4572c7479da53cfbc14bde6,
+    type: 3}
   groupBuses:
   - busName: Noises
     volume: 1
@@ -377,7 +379,7 @@ MonoBehaviour:
   defaultRiseVolStart: 0.5
   defaultUnduckTime: 1
   defaultDuckedVolumeCut: -6
-  crossFadeTime: 3.0655737
+  crossFadeTime: 3.065574
   _masterPlaylistVolume: 1
   showGroupSelect: 0
   hideGroupsWithNoActiveVars: 0

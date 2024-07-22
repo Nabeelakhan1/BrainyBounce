@@ -11,7 +11,7 @@ public class UIManagerScript : MonoBehaviour
     public Sprite playImage;   // Reference to the play image
     public GameObject pausePanel;  // Reference to the pause panel
     private bool isPaused = false;
-
+    private AudioSource audioSource;
     private void Awake()
     {
         if (instance == null)
@@ -40,6 +40,7 @@ public class UIManagerScript : MonoBehaviour
         {
             Debug.LogError("Pause or play image is not assigned in the inspector.");
         }
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -61,6 +62,7 @@ public class UIManagerScript : MonoBehaviour
 
         isPaused = !isPaused;
         pausePanel.SetActive(isPaused);
+        audioSource.Play();
         Time.timeScale = isPaused ? 0 : 1;  // Pause or unpause the game
         pauseButton.image.sprite = isPaused ? playImage : pauseImage; // Switch button image
         Debug.Log("Game is " + (isPaused ? "paused" : "unpaused") + ". Pause panel is " + (isPaused ? "shown" : "hidden") + ".");

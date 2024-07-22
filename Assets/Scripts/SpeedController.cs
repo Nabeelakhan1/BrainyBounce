@@ -11,10 +11,11 @@ public class SpeedController : MonoBehaviour
     private bool isSlowDown=false;
     private bool isSpeedUp=false;
     public float originalSpeed;
-
-     void Start()
+    
+    void Start()
     {
         originalSpeed = splineFollower.followSpeed;
+       
     }
 
     private void Update()
@@ -47,6 +48,7 @@ public class SpeedController : MonoBehaviour
     public void onSlowDownButtonPressed(BaseEventData eventData)
     {
         isSlowDown = true;
+        
         AdjustSpeed();
 
     }
