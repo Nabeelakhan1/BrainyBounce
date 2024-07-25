@@ -7,19 +7,23 @@ public class TutorialTrigger : MonoBehaviour
 {
     public GameObject Tutorialpanel;
     public Button OkButton;
+    
     void Start()
     {
         Tutorialpanel.SetActive(false);
         OkButton.onClick.AddListener(ResumeGame);
         
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player"))
         {
+           
             Time.timeScale = 0f;
             Tutorialpanel.SetActive(true);
+         
 
         }
     }

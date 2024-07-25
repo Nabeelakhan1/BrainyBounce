@@ -119,6 +119,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7569f9c62b563024bada64bae42173b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ringCollisionSound: {fileID: 8300000, guid: c8fb8f79396a4504cb6e6bde37636599, type: 3}
+  WaterCollisionSound: {fileID: 0}
 --- !u!54 &2281594629874692180
 Rigidbody:
   m_ObjectHideFlags: 0

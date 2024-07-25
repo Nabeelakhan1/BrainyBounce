@@ -12,6 +12,20 @@ public class DetectionZone : MonoBehaviour
 
     private int health = 6; // Player's health
 
+    public AudioSource audioSource;
+    public AudioClip BloodSound;
+
+    public void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+
+        // Ensure Play On Awake is disabled
+        if (audioSource.playOnAwake)
+        {
+            audioSource.playOnAwake = false;
+        }
+    }
+
     private void OnEnable()
     {
         // Reset health
@@ -72,9 +86,13 @@ public class DetectionZone : MonoBehaviour
         if (bloodEffect != null)
         {
             bloodEffect.SetActive(true);
+
             // Optionally, disable the blood effect after some time
             Invoke("HideBloodEffect", 1f); // Adjust the time as needed
         }
+
+        // Play the blood sound
+        PlaySound(BloodSound);
     }
 
     private void HideBloodEffect()
@@ -122,5 +140,17 @@ public class DetectionZone : MonoBehaviour
 
         // Reload the current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
+        else
+        {
+            Debug.LogWarning("AudioSource or AudioClip is missing.");
+        }
     }
 }

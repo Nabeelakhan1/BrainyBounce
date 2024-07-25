@@ -8,6 +8,7 @@ TagManager:
   - ring
   - death
   - bullet
+  - water
   layers:
   - Default
   - TransparentFX

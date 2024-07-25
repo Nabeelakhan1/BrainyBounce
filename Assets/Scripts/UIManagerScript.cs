@@ -1,16 +1,17 @@
-﻿using UnityEngine.SceneManagement;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManagerScript : MonoBehaviour
 {
     public static UIManagerScript instance;
 
-    public Button pauseButton; // Reference to the pause button
-    public Sprite pauseImage;  // Reference to the pause image
-    public Sprite playImage;   // Reference to the play image
-    public GameObject pausePanel;  // Reference to the pause panel
+    public Button pauseButton;
+    public Sprite pauseImage;
+    public Sprite playImage;
+    public GameObject pausePanel;
     private bool isPaused = false;
+    private AudioSource audioSource;
 
     private void Awake()
     {
@@ -24,7 +25,7 @@ public class UIManagerScript : MonoBehaviour
     {
         if (pausePanel != null)
         {
-            pausePanel.SetActive(false);  // Ensure the pause panel is hidden at start
+            pausePanel.SetActive(false);
         }
         else
         {
@@ -40,11 +41,11 @@ public class UIManagerScript : MonoBehaviour
         {
             Debug.LogError("Pause or play image is not assigned in the inspector.");
         }
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
     {
-        // Check for pause/unpause input (optional, if you want to toggle with a key)
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePause();
@@ -61,16 +62,18 @@ public class UIManagerScript : MonoBehaviour
 
         isPaused = !isPaused;
         pausePanel.SetActive(isPaused);
-        Time.timeScale = isPaused ? 0 : 1;  // Pause or unpause the game
-        pauseButton.image.sprite = isPaused ? playImage : pauseImage; // Switch button image
+        //audioSource.Play();
+        Time.timeScale = isPaused ? 0 : 1;
+        pauseButton.image.sprite = isPaused ? playImage : pauseImage;
         Debug.Log("Game is " + (isPaused ? "paused" : "unpaused") + ". Pause panel is " + (isPaused ? "shown" : "hidden") + ".");
+        Debug.Log("Button image changed to " + (isPaused ? "playImage" : "pauseImage"));
     }
 
     public void ResumeGame()
     {
         if (isPaused)
         {
-            TogglePause();  // Resumes the game by toggling the pause state
+            TogglePause();
         }
     }
 

@@ -1,8 +1,7 @@
-using UnityEngine;
-using TMPro; // For TextMeshPro
 using UnityEngine.EventSystems; // For detecting UI elements
 using System.Collections.Generic; // For List<RaycastResult>
-
+using UnityEngine;
+using TMPro; // For TextMeshPro
 public class ThrowController : MonoBehaviour
 {
     [Header("Throw Settings")]
