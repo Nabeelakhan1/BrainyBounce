@@ -32677,6 +32677,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5790050618090691160, guid: 23ad1e2fdfd9b884e831d54af1d80cd6,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5790050618090691160, guid: 23ad1e2fdfd9b884e831d54af1d80cd6,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 826212382}
@@ -32684,6 +32689,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: LoadNextLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 5790050618090691160, guid: 23ad1e2fdfd9b884e831d54af1d80cd6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LevelCompletion, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5790050618090691160, guid: 23ad1e2fdfd9b884e831d54af1d80cd6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6152175906963235867, guid: 23ad1e2fdfd9b884e831d54af1d80cd6,
         type: 3}
