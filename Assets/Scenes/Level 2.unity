@@ -8222,7 +8222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinText: {fileID: 932926085}
-  totalCoinsToCollect: 34
+  totalCoinsToCollect: 40
 --- !u!1001 &935431209
 PrefabInstance:
   m_ObjectHideFlags: 0
