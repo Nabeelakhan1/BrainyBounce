@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance { get; private set; }
-
-    private bool[] levelUnlocked; // Array to track unlocked levels
+    private bool[] levelUnlocked;
 
     private void Awake()
     {
@@ -14,20 +14,23 @@ public class LevelManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
-            // Initialize levelUnlocked array
-            levelUnlocked = new bool[SceneManager.sceneCountInBuildSettings];
-            LoadLevelProgress();
-
-            // Ensure the first playable level (index 1) is unlocked
-            if (!levelUnlocked[1])
-            {
-                levelUnlocked[1] = true;
-                SaveLevelProgress();
-            }
+            InitializeLevelProgress();
         }
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void InitializeLevelProgress()
+    {
+        levelUnlocked = new bool[SceneManager.sceneCountInBuildSettings];
+        LoadLevelProgress();
+
+        if (!levelUnlocked[1])
+        {
+            levelUnlocked[1] = true;  // Ensure level 1 is always unlocked
+            SaveLevelProgress();
         }
     }
 
@@ -37,10 +40,7 @@ public class LevelManager : MonoBehaviour
         {
             levelUnlocked[levelIndex] = true;
             SaveLevelProgress();
-        }
-        else
-        {
-            Debug.LogError($"Trying to unlock level {levelIndex} which is out of range.");
+            Debug.Log($"Level {levelIndex} unlocked.");
         }
     }
 
@@ -52,7 +52,6 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError($"Trying to check if level {levelIndex} is unlocked which is out of range.");
             return false;
         }
     }
@@ -74,13 +73,28 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    // Add this method to reset the level progress
-    public void ResetLevels()
+    // Reset function with UI update trigger
+    public void ResetAllLevels()
     {
         for (int i = 0; i < levelUnlocked.Length; i++)
         {
-            levelUnlocked[i] = i == 1; // Only unlock level 1
+            levelUnlocked[i] = (i == 1);  // Only unlock level 1
+            PlayerPrefs.SetInt($"Level_{i}_Unlocked", (i == 1) ? 1 : 0);  // Save progress
         }
-        SaveLevelProgress();
+        PlayerPrefs.Save();  // Save PlayerPrefs to persist changes
+        Debug.Log("All levels reset, except level 1.");
+
+        // Trigger UI update for all level buttons
+        UpdateAllLevelButtons();
+    }
+
+    // Function to update all level buttons
+    private void UpdateAllLevelButtons()
+    {
+        LevelButton[] levelButtons = FindObjectsOfType<LevelButton>();
+        foreach (LevelButton button in levelButtons)
+        {
+            button.UpdateButtonInteractable();  // Update the button state and visual
+        }
     }
 }

@@ -12,7 +12,7 @@ public class ButtonSoundOnPress : MonoBehaviour, IPointerDownHandler
             audioSource = GetComponent<AudioSource>();
             if (audioSource == null)
             {
-                Debug.LogError("AudioSource component is missing from the GameObject.");
+                Debug.Log("AudioSource component is missing from the GameObject.");
             }
         }
     }

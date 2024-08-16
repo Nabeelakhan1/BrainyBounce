@@ -69,6 +69,11 @@ public class UIManagerScript : MonoBehaviour
         Debug.Log("Button image changed to " + (isPaused ? "playImage" : "pauseImage"));
     }
 
+    public bool IsGamePaused() // Expose the pause state to other scripts
+    {
+        return isPaused;
+    }
+
     public void ResumeGame()
     {
         if (isPaused)

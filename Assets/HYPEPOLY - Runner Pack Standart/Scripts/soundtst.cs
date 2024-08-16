@@ -24,10 +24,6 @@ public class SoundTest : MonoBehaviour
         {
             audioSource.Play();
         }
-        else
-        {
-            Debug.LogWarning("AudioSource component is missing.");
-        }
     }
 
     private IEnumerator PlaySoundRepeatedly()

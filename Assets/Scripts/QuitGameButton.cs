@@ -13,10 +13,7 @@ public class QuitGameButton : MonoBehaviour
         {
             button.onClick.AddListener(QuitGame);
         }
-        else
-        {
-            Debug.LogError("No Button component found on this GameObject.");
-        }
+        
     }
 
     private void QuitGame()
@@ -24,9 +21,6 @@ public class QuitGameButton : MonoBehaviour
         // Quit the application
         Application.Quit();
 
-        // If running in the editor, stop playing
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#endif
     }
+
 }
